@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="course_view_form_extended">
+    <field name="name">openacademy-iesn form</field>
+    <field name="model">openacademy.course</field>
+    <field name="inherit_id" ref="openacademy.course_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="stupid_example"/>
+        </xpath>
+    </field>
+  </record>
+</odoo>

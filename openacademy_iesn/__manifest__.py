@@ -20,7 +20,7 @@
     # always loaded
     'data': [
         'views/project.xml',
-        #'views/sessions.xml',
+        'views/course.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

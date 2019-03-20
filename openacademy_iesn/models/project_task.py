@@ -3,6 +3,7 @@ import random
 import requests
 
 from odoo import models, fields
+from odoo.exceptions import UserError
 
 GIPHY_KEY = "wNZ8xtjkJWcfhmoxLLZZPVQ4PjYdBmhb"
 GIPHY_ENDPOINT = "http://api.giphy.com/v1/gifs/search"
@@ -26,7 +27,7 @@ class ProjectTask(models.Model):
         # 2. Store gif in attachment
         # I'll do that part for you, just make sure that gif_url is an URL to a gif file online somewhere (string)
         if 'gif_url' not in locals() and not isinstance(gif_url, str):  # never mind me, just checking if the variable is available
-            return False
+            raise UserError('Implement me!')
         ze_gif = requests.get(gif_url)
         stored_gif = self.env['ir.attachment'].create({
             'name': 'random-gif-task-{}'.format(self.id),
