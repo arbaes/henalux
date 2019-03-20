@@ -35,8 +35,4 @@
         'report/session.xml',
         'data/partner.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo.xml',
-    ],
 }
