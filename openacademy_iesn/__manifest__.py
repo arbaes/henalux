@@ -22,8 +22,4 @@
         'views/project.xml',
         'views/course.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo.xml',
-    ],
 }
