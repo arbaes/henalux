@@ -7,12 +7,13 @@ from odoo import models, fields, api, exceptions, _
 class Course(models.Model):
     _name = 'openacademy.course'
     _inherit = 'mail.thread'
+    _description = 'OA Course'
 
     name = fields.Char()
     description = fields.Text()
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
-    level = fields.Selection([(1, 'Easy'), (2, 'Medium'), (3, 'Hard')], string="Difficulty Level")
+    level = fields.Selection([('1', 'Easy'), ('2', 'Medium'), ('3', 'Hard')], string="Difficulty Level")
     color = fields.Integer()
     session_count = fields.Integer("Session Count", compute="_compute_session_count")
 
@@ -30,7 +31,6 @@ class Course(models.Model):
         _("The course title must be unique")),
     ]
 
-    @api.multi
     def copy(self, default=None):
         default = dict(default or {})
 
@@ -53,6 +53,7 @@ class Course(models.Model):
 class Session(models.Model):
     _name = 'openacademy.session'
     _order = 'name'
+    _description = 'OA Session'
 
     name = fields.Char(required=True)
     start_date = fields.Date(default=lambda self : fields.Date.today())
@@ -149,13 +150,12 @@ class Session(models.Model):
             if session.taken_seats >= 50.0 and session.state == 'draft':
                 session.state = 'confirmed'
 
-    @api.multi
     def write(self, vals):
         res = super(Session, self).write(vals)
         self._auto_transition()
         return res
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         rec = super(Session, self).create(vals)
         rec._auto_transition()
